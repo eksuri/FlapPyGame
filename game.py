@@ -11,7 +11,7 @@ from gameover import GameOver
 
 from random import randint
 
-WIDTH = 1024 # variable
+WIDTH = 336 # variable
 HEIGHT = 512 # fixed
 TICKRATE = 60 # fixed... for now
 PIPE_DENSITY = 2 # variable
@@ -31,20 +31,13 @@ def main():
     gameState = GameState(groups) # 0 = menu, 1 = game, 2 = gameover, 3 = exit
     crashed = False
 
-    #br = Bird(randint(0,2), gameState)
-    #birdGroup = pygame.sprite.Group((br))
-    #backgroundGroup = Backgrounds(WIDTH, randint(0,1))
-    #pipeGroup = Pipes(WIDTH, PIPE_DENSITY, randint(0,1))
-    #groundGroup = Grounds(WIDTH)
-
-    #groups.add(backgroundGroup, birdGroup, pipeGroup, groundGroup)
-
     while not crashed:
         if gameState.changed():
             if gameState.get() == 0:
                 backgroundGroup = Backgrounds(WIDTH, 0)
                 groundGroup = Grounds(WIDTH)
                 menuGroup = pygame.sprite.Group(Menu(WIDTH, HEIGHT))
+
                 groups.add(backgroundGroup, groundGroup, menuGroup)
 
             elif gameState.get() == 1:
@@ -62,6 +55,7 @@ def main():
                 groundGroup = Grounds(WIDTH)
                 gameoverGroup = pygame.sprite.Group(GameOver(WIDTH, HEIGHT))
                 #scoreGroup = Scores(WIDTH, HEIGHT)
+
                 groups.add(backgroundGroup, groundGroup, gameoverGroup)
             else:
                 crashed = True
