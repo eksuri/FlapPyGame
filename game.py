@@ -1,4 +1,5 @@
 import pygame
+from pygame import mixer
 
 from gamestate import GameState
 from grouplist import GroupList
@@ -20,9 +21,12 @@ TITLE = 'Flappy Bird'
 pygame.init()
     
 def main():
+    
+    mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=4096)
     pygame.init()
+    print(pygame.mixer.get_init())
     pygame.display.set_caption(TITLE)
-
+   
     global CLOCK, DISPLAY
     CLOCK = pygame.time.Clock()
     DISPLAY = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -30,6 +34,12 @@ def main():
     groups = GroupList()
     gameState = GameState(groups) # 0 = menu, 1 = game, 2 = gameover, 3 = exit
     crashed = False
+
+    sounds = [mixer.Sound("assets/audio/wing.ogg"),
+              mixer.Sound("assets/audio/point.ogg"),
+              mixer.Sound("assets/audio/hit.ogg"),
+              mixer.Sound("assets/audio/die.ogg"),
+              mixer.Sound("assets/audio/swoosh.ogg")]
 
     while not crashed:
         if gameState.changed():
@@ -51,6 +61,8 @@ def main():
                 groups.add(backgroundGroup, pipeGroup, groundGroup, birdGroup)  
 
             elif gameState.get() == 2:
+                sounds[2].play(0)
+                sounds[3].play(0)
                 gameoverGroup = pygame.sprite.Group(GameOver(WIDTH, HEIGHT))
                 #scoreGroup = Scores(WIDTH, HEIGHT)
 
@@ -65,6 +77,7 @@ def main():
                 if gameState.get() == 0: # could be dangerous...
                     gameState.set(1)
                 elif gameState.get() == 1:
+                    sounds[0].play(0)
                     br.bounce()
                 elif gameState.get() == 2:
                     gameState.set(0)

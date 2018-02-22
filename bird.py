@@ -21,17 +21,27 @@ class Bird(pygame.sprite.Sprite):
                            pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha()]
 
         self.angles = range(20, -80, -5)
+
         self.images = [[pygame.transform.rotate(image, angle) for image in self.images_base] for angle in self.angles]
         # 3 x 20 matrix with images for all positions
         # rows are for different wing poisitons
         # coloumns are for different angles
-        self.image = self.images[0][0]
-        self.rect = self.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image) # redraw the mask often, maybe precalculate all?
-        self.rect.center = (80, 255)
-        self.z = 0 #counter 
+
+        self.masks = [[pygame.mask.from_surface(column) for column in row] for row in self.images]
+        # precalculated masks
+        self.rects = [[column.get_rect() for column in row] for row in self.images]
+        # precalculated rects
+
         self.wing = 0
         self.angle = 0
+
+        self.image = self.images[self.wing][self.angle]
+        self.mask = self.masks[self.wing][self.angle]
+        self.rect = self.rects[self.wing][self.angle]
+        self.rect.center = (80, 255)
+
+        self.z = 0 #counter 
+
 
     
     def update(self):
@@ -56,7 +66,7 @@ class Bird(pygame.sprite.Sprite):
         elif self.angle > 19:
             self.angle = 19
 
-        if  self.rect.y > 380:
+        if  self.rect.y > 368: # calculation for floor collision, could be replaced with real colision
             self.gameState.set(2)
 
     def bounce(self):
@@ -66,7 +76,7 @@ class Bird(pygame.sprite.Sprite):
         self.wing += 1
         self.wing %= 3
         self.image = self.images[self.angle][self.wing]
-        self.mask = pygame.mask.from_surface(self.image)
+        self.mask = self.masks[self.angle][self.wing]
 
     #def getPosition(self):
 
