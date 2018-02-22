@@ -17,3 +17,5 @@ class Pipe(pygame.sprite.Sprite):
         
     def update(self): # hitching, rewrite entire class later
         self.rect.move_ip(-1, 0)
+        if self.rect.x < -52:
+            self.kill()

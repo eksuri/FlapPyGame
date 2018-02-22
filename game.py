@@ -11,7 +11,7 @@ from random import randint
 
 WIDTH = 1024 # variable
 HEIGHT = 512 # fixed
-TICKRATE = 60 # variable
+TICKRATE = 60 # fixed... for now
 PIPE_DENSITY = 2 # variable
 TITLE = 'Flappy Bird'
 
