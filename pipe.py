@@ -1,42 +1,40 @@
 import pygame
+from globals import *
 
 class Pipe(pygame.sprite.Sprite):
     
-    def __init__(self, x, y, color, direction, bird, gameState, playSounds):
+    def __init__(self, y, color, direction, bird):
         pygame.sprite.Sprite.__init__(self)
-        self.playSounds = playSounds
         self.images = [ pygame.image.load('assets/sprites/pipe-red.png').convert_alpha(),
                         pygame.image.load('assets/sprites/pipe-green.png').convert_alpha() ]
         self.image = self.images[color]
         self.bird = bird
-        self.gameState = gameState
         self.direction = direction
-        
-        self.middle = x // 2 
+        self.middle = WIDTH // 2 
 
         if direction == 1:
             self.image = pygame.transform.flip(self.image,0,1)
             self.rect = self.image.get_rect()
             self.mask = pygame.mask.from_surface(self.image)
-            self.rect.bottomleft = (x, y - 100)
+            self.rect.bottomleft = (WIDTH, y - 100)
         else:
             self.rect = self.image.get_rect()
             self.mask = pygame.mask.from_surface(self.image)
-            self.rect.topleft = (x, y)
+            self.rect.topleft = (WIDTH, y)
         
     def update(self): # hitching, rewrite entire class later
         self.rect.move_ip(-1, 0)
 
         if self.rect.x == self.middle and self.direction == 0:
-            self.gameState.score()
-            self.playSounds[0](1)
+            PLAYSOUNDS[0](1)
+            GAMESTATE.score()
 
         if self.rect.x < -52:
             self.kill()
         if(self.collide(self.bird)):
-            self.playSounds[0](2)
-            self.playSounds[0](3)
-            self.gameState.set(2)
+            PLAYSOUNDS[0](2)
+            PLAYSOUNDS[0](3)
+            GAMESTATE.set(2)
 
     def collide(self, other):
         offset = list((other.rect[0] - self.rect[0], other.rect[1] - self.rect[1]))
