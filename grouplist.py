@@ -16,4 +16,10 @@ class GroupList():
     def draw(self, display):
         for group in self.groupList:
             group.draw(display)
+
+    def empty(self):
+        for group in self.groupList:
+            group.empty()
+        self.groupList = []
+
         

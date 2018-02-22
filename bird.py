@@ -1,9 +1,12 @@
 import pygame
 
+from gamestate import GameState
+
 class Bird(pygame.sprite.Sprite):
     
-    def __init__(self, int):
+    def __init__(self, int, gameState):
         pygame.sprite.Sprite.__init__(self)
+        self.gameState = gameState
         if int == 0:
             self.images = [pygame.image.load('assets/sprites/yellowbird-downflap.png').convert_alpha(),
                            pygame.image.load('assets/sprites/yellowbird-midflap.png').convert_alpha(),
@@ -41,10 +44,8 @@ class Bird(pygame.sprite.Sprite):
             self.z = 0
             self.image = self.images[0]
         
-        #if self.y < 0:
-        #    self.y = 0
-        #elif self.y > 376:
-        #    self.y = 376
+        if self.rect.y < 0 or self.rect.y > 376:
+            self.gameState.set(2)
 
     def bounce(self):
         self.z = 30;

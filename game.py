@@ -1,11 +1,13 @@
 import pygame
 
+from gamestate import GameState
 from grouplist import GroupList
 from backgrounds import Backgrounds
 from bird import Bird
 from pipes import Pipes
 from grounds import Grounds
-from overlay import Overlay
+from menu import Menu
+from gameover import GameOver
 
 from random import randint
 
@@ -25,24 +27,57 @@ def main():
     CLOCK = pygame.time.Clock()
     DISPLAY = pygame.display.set_mode((WIDTH, HEIGHT))
 
+    groups = GroupList()
+    gameState = GameState(groups) # 0 = menu, 1 = game, 2 = gameover, 3 = exit
     crashed = False
 
-    br = Bird(randint(0,2))
-    birdGroup = pygame.sprite.Group((br))
-    backgroundGroup = Backgrounds(WIDTH, randint(0,1))
-    pipeGroup = Pipes(WIDTH, PIPE_DENSITY, randint(0,1))
-    groundGroup = Grounds(WIDTH)
-    overlayGroup = Overlay(WIDTH, HEIGHT)
+    #br = Bird(randint(0,2), gameState)
+    #birdGroup = pygame.sprite.Group((br))
+    #backgroundGroup = Backgrounds(WIDTH, randint(0,1))
+    #pipeGroup = Pipes(WIDTH, PIPE_DENSITY, randint(0,1))
+    #groundGroup = Grounds(WIDTH)
 
-    groups = GroupList()    
-    groups.add(backgroundGroup, birdGroup, pipeGroup, groundGroup)
+    #groups.add(backgroundGroup, birdGroup, pipeGroup, groundGroup)
 
     while not crashed:
+        if gameState.changed():
+            if gameState.get() == 0:
+                backgroundGroup = Backgrounds(WIDTH, 0)
+                groundGroup = Grounds(WIDTH)
+                menuGroup = pygame.sprite.Group(Menu(WIDTH, HEIGHT))
+                groups.add(backgroundGroup, groundGroup, menuGroup)
+
+            elif gameState.get() == 1:
+                br = Bird(randint(0,2), gameState)
+                birdGroup = pygame.sprite.Group((br))
+                backgroundGroup = Backgrounds(WIDTH, randint(0,1))
+                pipeGroup = Pipes(WIDTH, PIPE_DENSITY, randint(0,1))
+                groundGroup = Grounds(WIDTH)
+                #scoreGroup = Scores(WIDTH, HEIGHT)
+
+                groups.add(backgroundGroup, birdGroup, pipeGroup, groundGroup)  
+
+            elif gameState.get() == 2:
+                backgroundGroup = Backgrounds(WIDTH, randint(0,1))
+                groundGroup = Grounds(WIDTH)
+                gameoverGroup = pygame.sprite.Group(GameOver(WIDTH, HEIGHT))
+                #scoreGroup = Scores(WIDTH, HEIGHT)
+                groups.add(backgroundGroup, groundGroup, gameoverGroup)
+            else:
+                crashed = True
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 crashed = True
             elif event.type == pygame.KEYDOWN:
-                br.bounce()
+                if gameState.get() == 0: # could be dangerous...
+                    gameState.set(1)
+                elif gameState.get() == 1:
+                    br.bounce()
+                elif gameState.get() == 2:
+                    gameState.set(0)
+                else:
+                    crash = True
 
 
         groups.update()
