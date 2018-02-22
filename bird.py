@@ -41,18 +41,18 @@ class Bird(pygame.sprite.Sprite):
     
     def update(self):
         self.flap()
-        if self.z > 15:
+        if self.z > TICKRATE / 4:
             self.angle -= 1
-            self.rect.move_ip(0, -3)
+            self.rect.move_ip(0, -180 / TICKRATE)
             self.z -= 1 
-        elif self.z > 10:
-            self.rect.move_ip(0, -1)
+        elif self.z > TICKRATE / 6:
+            self.rect.move_ip(0, -60 / TICKRATE)
             self.z -= 1
         elif self.z > 0:
-            self.rect.move_ip(0, 2)
+            self.rect.move_ip(0, 120 / TICKRATE)
             self.z -= 1
         else:           
-            self.rect.move_ip(0, 5)
+            self.rect.move_ip(0, 300 / TICKRATE)
             self.angle += 1
             self.z = 0
         
@@ -68,7 +68,7 @@ class Bird(pygame.sprite.Sprite):
 
     def bounce(self):
         PLAYSOUNDS[0](0)
-        self.z = 30;
+        self.z = TICKRATE / 2;
 
     def flap(self):
         self.wing += 1

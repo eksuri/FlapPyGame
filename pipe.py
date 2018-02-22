@@ -23,7 +23,7 @@ class Pipe(pygame.sprite.Sprite):
             self.rect.topleft = (WIDTH, y)
         
     def update(self): # hitching, rewrite entire class later
-        self.rect.move_ip(-1, 0)
+        self.rect.move_ip(-60 / TICKRATE, 0)
 
         if self.rect.x == self.middle and self.direction == 0:
             PLAYSOUNDS[0](1)

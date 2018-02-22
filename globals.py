@@ -7,9 +7,9 @@ global WIDTH, HEIGHT, TICKRATE, PIPE_DENSITY, TITLE, CLOCK, DISPLAY, PLAYSOUNDS,
 
 pygame.init()
 
-WIDTH = 1024 # variable
+WIDTH = 512 # variable
 HEIGHT = 512 # fixed
-TICKRATE = 60 # fixed... for now
+TICKRATE = 60 # variable, 3-60
 PIPE_DENSITY = 2 # variable
 TITLE = 'Flappy Bird'
 

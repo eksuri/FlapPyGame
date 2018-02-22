@@ -15,7 +15,7 @@ class Pipes(pygame.sprite.Group):
         self.add(Pipe(self.gap, self.color, 1, self.bird))
 
     def update(self):
-        self.counter -= 1
+        self.counter -= 60 / TICKRATE
         if self.counter < 0:
             self.gap = randint(180,320)
             self.add(Pipe(self.gap, self.color, 0, self.bird))
