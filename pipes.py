@@ -1,26 +1,21 @@
 import pygame
+from pipe import Pipe
 
-class Pipes:
+from random import randint
+
+class Pipes(pygame.sprite.Group):
     
-    def __init__(self, width, pos, int):
-        self.z = 600
-        self.pipes = []
-        self.x = width
-        self.pos = pos
-        if int == 0:
-            self.sprite = pygame.image.load('assets/sprites/pipe-green.png').convert_alpha()
-        else:
-            self.sprite = pygame.image.load('assets/sprites/pipe-red.png').convert_alpha()
+    def __init__(self, width, density, color):
+        pygame.sprite.Group.__init__(self)
+        self.width = width
+        self.density = density
+        self.counter = self.width / self.density
+        self.color = color
+        self.add(Pipe(0,0,color,0))
 
-    def paint(self, DISPLAY):
-        self.x -= 1  
-        self.z -= 1
-        if self.z = 0:
-            self.z += 120
-
-
-
-        DISPLAY.blit(self.sprite, (self.x, self.pos))
-
-    def getPosition(self):
-        return self.pos
+    def update(self):
+        self.counter -= 1
+        if self.counter < 0:
+            self.add(Pipe(0,0, self.color,0))
+            self.counter = self.width / self.density
+        pygame.sprite.Group.update(self)

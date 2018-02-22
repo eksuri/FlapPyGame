@@ -1,13 +1,15 @@
 import pygame
-from background import Background
+
+from grouplist import GroupList
+from backgrounds import Backgrounds
 from bird import Bird
-from pipe import Pipe
+from pipes import Pipes
 from ground import Ground
 from overlay import Overlay
 
 from random import randint
 
-WIDTH = 288
+WIDTH = 290
 HEIGHT = 512
 TICKRATE = 60
 TITLE = 'Flappy Bird'
@@ -24,12 +26,16 @@ def main():
 
     crashed = False
 
-    bg = Background(randint(0,1))
+    backgroundGroup = Backgrounds(WIDTH, HEIGHT, randint(0,1))
     br = Bird(randint(0,2))
-    pp = Pipe(WIDTH, randint(0,1))
+    gl = GroupList()
+    birdGroup = pygame.sprite.Group((br))
+    pipeGroup = Pipes(WIDTH, 3, randint(0,1))
+    
+    gl.add(backgroundGroup, birdGroup, pipeGroup)
+
     gr = Ground()
     ol = Overlay()
-
     while not crashed:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -37,13 +43,11 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 br.bounce()
 
-        bg.paint(DISPLAY)
-        br.paint(DISPLAY)
-        pp.paint(DISPLAY)
-        gr.paint(DISPLAY)
-        ol.paint(DISPLAY)
-    
-        pygame.display.update()
+
+        gl.update()
+        gl.draw(DISPLAY)
+
+        pygame.display.update()   
         CLOCK.tick(TICKRATE)
 
     pygame.quit()

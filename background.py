@@ -1,15 +1,21 @@
 import pygame
 
-class Background:
+class Background(pygame.sprite.Sprite):
     
-    def __init__(self, int):
-        self.backgrounds = [ pygame.image.load('assets/sprites/background-day.png').convert(),
-                             pygame.image.load('assets/sprites/background-night.png').convert()]
-        self.background = self.backgrounds[int]   
-        self.x = 0    
+    def __init__(self, width, position, daynight):
+        pygame.sprite.Sprite.__init__(self)
+        self.width = width
+        self.position = position
+        self.images = [ pygame.image.load('assets/sprites/background-day.png').convert(),
+                        pygame.image.load('assets/sprites/background-night.png').convert()]
+        self.image = self.images[daynight]   
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.position, 0)
 
-    def paint(self, DISPLAY):        
-        self.x += 1
-        self.x = self.x % 289
-        DISPLAY.blit(self.background, (self.x - 289, 0))
-        DISPLAY.blit(self.background, (self.x, 0))
+    def update(self):        
+        self.position -= 1
+        if self.position == -self.width:
+            self.position = self.width
+            self.rect.move_ip(2*self.width, 0)
+        else:
+            self.rect.move_ip(-1, 0)

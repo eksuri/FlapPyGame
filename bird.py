@@ -1,56 +1,54 @@
 import pygame
 
-class Bird:
+class Bird(pygame.sprite.Sprite):
     
     def __init__(self, int):
-        self.x = 80
-        self.y = 255
+        pygame.sprite.Sprite.__init__(self)
         if int == 0:
-            self.sprite = [pygame.image.load('assets/sprites/yellowbird-downflap.png').convert_alpha(),
+            self.images = [pygame.image.load('assets/sprites/yellowbird-downflap.png').convert_alpha(),
                            pygame.image.load('assets/sprites/yellowbird-midflap.png').convert_alpha(),
                            pygame.image.load('assets/sprites/yellowbird-upflap.png').convert_alpha()]
         elif int == 1:
-            self.sprite = [pygame.image.load('assets/sprites/redbird-downflap.png').convert_alpha(),
+            self.images = [pygame.image.load('assets/sprites/redbird-downflap.png').convert_alpha(),
                            pygame.image.load('assets/sprites/redbird-midflap.png').convert_alpha(),
                            pygame.image.load('assets/sprites/redbird-upflap.png').convert_alpha()]
         else:
-            self.sprite = [pygame.image.load('assets/sprites/bluebird-downflap.png').convert_alpha(),
+            self.images = [pygame.image.load('assets/sprites/bluebird-downflap.png').convert_alpha(),
                            pygame.image.load('assets/sprites/bluebird-midflap.png').convert_alpha(),
                            pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha()]
 
+        self.image = self.images[1]
+        self.rect = self.image.get_rect()
+        self.rect.center = (80, 255)
         self.z = 0 #counter 
 
     
-    def paint(self, DISPLAY):
+    def update(self):
         if self.z > 20:
-            self.y -= 2
+            self.rect.move_ip(0, -2)
             self.z -= 1
-            sprite =  self.sprite[1]    
+            self.image = self.images[1]   
         elif self.z > 10:
-            self.y -= 1
+            self.rect.move_ip(0, -2)
             self.z -= 1
-            sprite = self.sprite[2]
+            self.image = self.images[2]
         elif self.z > 0:
-            self.y -= 0
+            self.rect.move_ip(0, 0)
             self.z -= 1
-            sprite = self.sprite[1]
+            self.image = self.images[1]
         else:           
-            self.y += 3
+            self.rect.move_ip(0, 3)
             self.z = 0
-            sprite = self.sprite[0]
+            self.image = self.images[0]
         
-        if self.y < 0:
-            self.y = 0
-        elif self.y > 376:
-            self.y = 376
-
-        DISPLAY.blit(sprite, (self.x, self.y))
+        #if self.y < 0:
+        #    self.y = 0
+        #elif self.y > 376:
+        #    self.y = 376
 
     def bounce(self):
         self.z = 30;
 
-    def getPosition(self):
-        return self.y
+    #def getPosition(self):
 
-    def die(self):
-        self.y = 0
+    #def die(self):
