@@ -4,7 +4,7 @@ from gamestate import GameState
 
 class Bird(pygame.sprite.Sprite):
     
-    def __init__(self, int, gameState, playSounds):
+    def __init__(self, int, width, gameState, playSounds):
         pygame.sprite.Sprite.__init__(self)
         self.gameState = gameState
         self.playSounds = playSounds
@@ -39,7 +39,7 @@ class Bird(pygame.sprite.Sprite):
         self.image = self.images[self.wing][self.angle]
         self.mask = self.masks[self.wing][self.angle]
         self.rect = self.rects[self.wing][self.angle]
-        self.rect.center = (80, 255)
+        self.rect.center = (width / 2, 255)
 
         self.z = 0 #counter 
 

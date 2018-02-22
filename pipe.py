@@ -10,6 +10,10 @@ class Pipe(pygame.sprite.Sprite):
         self.image = self.images[color]
         self.bird = bird
         self.gameState = gameState
+        self.direction = direction
+        
+        self.middle = x // 2 
+
         if direction == 1:
             self.image = pygame.transform.flip(self.image,0,1)
             self.rect = self.image.get_rect()
@@ -22,6 +26,11 @@ class Pipe(pygame.sprite.Sprite):
         
     def update(self): # hitching, rewrite entire class later
         self.rect.move_ip(-1, 0)
+
+        if self.rect.x == self.middle and self.direction == 0:
+            self.gameState.score()
+            self.playSounds[0](1)
+
         if self.rect.x < -52:
             self.kill()
         if(self.collide(self.bird)):

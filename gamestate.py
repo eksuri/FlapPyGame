@@ -5,11 +5,13 @@ class GameState:
     
     def __init__(self, groups):
         self.state = 0
+        self.points = 0
         self.dirty = True
         self.groups = groups
     
     def set(self, i):
         self.state = i
+        self.points = 0
         self.dirty = True
         self.groups.empty()
 
@@ -19,3 +21,9 @@ class GameState:
 
     def changed(self):
         return self.dirty
+        
+    def score(self):
+        self.points += 1
+
+    def getScore(self):
+        return self.points

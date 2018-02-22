@@ -9,10 +9,11 @@ from pipes import Pipes
 from grounds import Grounds
 from menu import Menu
 from gameover import GameOver
+from scores import Scores
 
 from random import randint
 
-WIDTH = 336 # variable
+WIDTH = 1024 # variable
 HEIGHT = 512 # fixed
 TICKRATE = 60 # fixed... for now
 PIPE_DENSITY = 2 # variable
@@ -53,18 +54,17 @@ def main():
                 groups.add(backgroundGroup, groundGroup, menuGroup)
 
             elif gameState.get() == 1:
-                br = Bird(randint(0,2), gameState, playSounds)
+                br = Bird(randint(0,2), WIDTH, gameState, playSounds)
                 birdGroup = pygame.sprite.Group((br))
                 backgroundGroup = Backgrounds(WIDTH, randint(0,1))
                 pipeGroup = Pipes(WIDTH, PIPE_DENSITY, randint(0,1), br, gameState, playSounds)
                 groundGroup = Grounds(WIDTH)
-                #scoreGroup = Scores(WIDTH, HEIGHT)
+                scoreGroup = Scores(WIDTH, gameState)
 
-                groups.add(backgroundGroup, pipeGroup, groundGroup, birdGroup)  
+                groups.add(backgroundGroup, pipeGroup, groundGroup, birdGroup, scoreGroup)  
 
             elif gameState.get() == 2:
                 gameoverGroup = pygame.sprite.Group(GameOver(WIDTH, HEIGHT))
-                #scoreGroup = Scores(WIDTH, HEIGHT)
 
                 groups.add(backgroundGroup, groundGroup, gameoverGroup)
             else:
