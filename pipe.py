@@ -2,8 +2,9 @@ import pygame
 
 class Pipe(pygame.sprite.Sprite):
     
-    def __init__(self, x, y, color, direction, bird, gameState):
+    def __init__(self, x, y, color, direction, bird, gameState, playSounds):
         pygame.sprite.Sprite.__init__(self)
+        self.playSounds = playSounds
         self.images = [ pygame.image.load('assets/sprites/pipe-red.png').convert_alpha(),
                         pygame.image.load('assets/sprites/pipe-green.png').convert_alpha() ]
         self.image = self.images[color]
@@ -24,6 +25,8 @@ class Pipe(pygame.sprite.Sprite):
         if self.rect.x < -52:
             self.kill()
         if(self.collide(self.bird)):
+            self.playSounds[0](2)
+            self.playSounds[0](3)
             self.gameState.set(2)
 
     def collide(self, other):

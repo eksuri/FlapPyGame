@@ -4,9 +4,10 @@ from gamestate import GameState
 
 class Bird(pygame.sprite.Sprite):
     
-    def __init__(self, int, gameState):
+    def __init__(self, int, gameState, playSounds):
         pygame.sprite.Sprite.__init__(self)
         self.gameState = gameState
+        self.playSounds = playSounds
         if int == 0:
             self.images_base = [pygame.image.load('assets/sprites/yellowbird-downflap.png').convert_alpha(),
                            pygame.image.load('assets/sprites/yellowbird-midflap.png').convert_alpha(),
@@ -67,9 +68,12 @@ class Bird(pygame.sprite.Sprite):
             self.angle = 19
 
         if  self.rect.y > 368: # calculation for floor collision, could be replaced with real colision
+            self.playSounds[0](2)
+            self.playSounds[0](3)
             self.gameState.set(2)
 
     def bounce(self):
+        self.playSounds[0](0)
         self.z = 30;
 
     def flap(self):
