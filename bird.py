@@ -27,20 +27,20 @@ class Bird(pygame.sprite.Sprite):
 
     
     def update(self):
-        if self.z > 20:
-            self.rect.move_ip(0, -2)
+        if self.z > 15:
+            self.rect.move_ip(0, -3)
             self.z -= 1
             self.image = self.images[1]   
-        elif self.z > 10:
-            self.rect.move_ip(0, -2)
+        elif self.z > 10 :
+            self.rect.move_ip(0, -1)
             self.z -= 1
             self.image = self.images[2]
         elif self.z > 0:
-            self.rect.move_ip(0, 0)
+            self.rect.move_ip(0, 2)
             self.z -= 1
             self.image = self.images[1]
         else:           
-            self.rect.move_ip(0, 3)
+            self.rect.move_ip(0, 5)
             self.z = 0
             self.image = self.images[0]
         
