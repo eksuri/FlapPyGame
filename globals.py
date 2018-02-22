@@ -3,15 +3,30 @@ from pygame import mixer
 from grouplist import GroupList
 from gamestate import GameState
 
-global WIDTH, HEIGHT, TICKRATE, PIPE_DENSITY, TITLE, CLOCK, DISPLAY, PLAYSOUNDS, GAMESTATE, GROUPS
+global WIDTH, HEIGHT, TICKRATE, PIPE_DENSITY, PIPEGAP_FIXED, PIPEGAP_MIN, PIPEGAP_MAX, TITLE, CLOCK, DISPLAY, PLAYSOUNDS, GAMESTATE, GROUPS
 
 pygame.init()
 
-WIDTH = 512 # variable
-HEIGHT = 512 # fixed
+##settings to change: ###########################
+#
+WIDTH = 512 # try it widescreen!
+HEIGHT = 512 # don't change
 TICKRATE = 60 # variable, 3-60
+#
 PIPE_DENSITY = 2 # variable
+PIPE_BUFFER = 80 # how far off the floor / roof the pipe has to be 
+PIPEGAP_FIXED = False
+PIPEGAP_MIN = 80 # if fixed = true, uses minimum
+PIPEGAP_MAX = 160 # how large the gap between the two pipes can be
+#
+ZBACKGROUNDS = 0 # 0 = random, 1 = day, 2 = night
+ZBIRDS = 0 # 0 = random, 1 = yellow, 2 = red, 3 = blue
+ZPIPES = 0 # 0 = random, 1 = green, 2 = red
+#
 TITLE = 'Flappy Bird'
+#
+#################################################
+
 
 CLOCK = pygame.time.Clock()
 DISPLAY = pygame.display.set_mode((WIDTH, HEIGHT))

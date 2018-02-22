@@ -15,7 +15,10 @@ class Bird(pygame.sprite.Sprite):
                             [pygame.image.load('assets/sprites/bluebird-downflap.png').convert_alpha(),
                              pygame.image.load('assets/sprites/bluebird-midflap.png').convert_alpha(),
                              pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha()]]
-        self.images_base = self.images_bases[randint(0,2)]
+        if ZBIRDS == 0:
+            self.images_base = self.images_bases[randint(0,2)]
+        else:
+            self.images_base = self.images_birds[ZBIRDS -1]
         self.angles = range(20, -80, -5)
         self.images = [[pygame.transform.rotate(image, angle) for image in self.images_base] for angle in self.angles]
         # 3 x 20 matrix with images for all positions

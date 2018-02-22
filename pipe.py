@@ -1,5 +1,6 @@
 import pygame
 from globals import *
+from random import randint
 
 class Pipe(pygame.sprite.Sprite):
     
@@ -16,7 +17,10 @@ class Pipe(pygame.sprite.Sprite):
             self.image = pygame.transform.flip(self.image,0,1)
             self.rect = self.image.get_rect()
             self.mask = pygame.mask.from_surface(self.image)
-            self.rect.bottomleft = (WIDTH, y - 100)
+            if not PIPEGAP_FIXED:
+                self.rect.bottomleft = (WIDTH, y - randint(PIPEGAP_MIN, PIPEGAP_MAX))
+            else:
+                self.rect.bottomleft = (WIDTH, y - PIPEGAP_MIN)
         else:
             self.rect = self.image.get_rect()
             self.mask = pygame.mask.from_surface(self.image)

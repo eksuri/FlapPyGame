@@ -45,7 +45,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 crashed = True
-            elif event.type == pygame.KEYDOWN:
+            elif event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
                 if GAMESTATE.get() == 0: # could be dangerous...
                     GAMESTATE.set(1)
                 elif GAMESTATE.get() == 1:
