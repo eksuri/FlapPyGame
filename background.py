@@ -17,5 +17,4 @@ class Background(pygame.sprite.Sprite):
         if self.position == -self.width:
             self.position = self.width
             self.rect.move_ip(2*self.width, 0)
-        else:
-            self.rect.move_ip(-1, 0)
+        self.rect.move_ip(-1, 0)

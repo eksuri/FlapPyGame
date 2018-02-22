@@ -4,7 +4,7 @@ from grouplist import GroupList
 from backgrounds import Backgrounds
 from bird import Bird
 from pipes import Pipes
-from ground import Ground
+from grounds import Grounds
 from overlay import Overlay
 
 from random import randint
@@ -12,6 +12,7 @@ from random import randint
 WIDTH = 290
 HEIGHT = 512
 TICKRATE = 60
+PIPE_DENSITY = 2
 TITLE = 'Flappy Bird'
 
 pygame.init()
@@ -26,15 +27,15 @@ def main():
 
     crashed = False
 
-    backgroundGroup = Backgrounds(WIDTH, HEIGHT, randint(0,1))
     br = Bird(randint(0,2))
-    gl = GroupList()
     birdGroup = pygame.sprite.Group((br))
-    pipeGroup = Pipes(WIDTH, 3, randint(0,1))
-    
-    gl.add(backgroundGroup, birdGroup, pipeGroup)
+    backgroundGroup = Backgrounds(WIDTH, HEIGHT, randint(0,1))
+    pipeGroup = Pipes(WIDTH, PIPE_DENSITY, randint(0,1))
+    groundGroup = Grounds(WIDTH)
 
-    gr = Ground()
+    gl = GroupList()    
+    gl.add(backgroundGroup, birdGroup, pipeGroup, groundGroup)
+
     ol = Overlay()
     while not crashed:
         for event in pygame.event.get():
