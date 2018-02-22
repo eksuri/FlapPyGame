@@ -39,6 +39,7 @@ class Bird(pygame.sprite.Sprite):
         self.rect.center = (WIDTH // 2, 255)
 
         self.z = 0 #counter 
+        self.w = 0 #counter #2
 
 
     
@@ -49,7 +50,7 @@ class Bird(pygame.sprite.Sprite):
             self.rect.move_ip(0, -180 / TICKRATE)
             self.z -= 1 
         elif self.z > TICKRATE / 6:
-            self.rect.move_ip(0, -60 / TICKRATE)
+            self.rect.move_ip(0, -120 / TICKRATE)
             self.z -= 1
         elif self.z > 0:
             self.rect.move_ip(0, 120 / TICKRATE)
@@ -74,7 +75,10 @@ class Bird(pygame.sprite.Sprite):
         self.z = TICKRATE / 2;
 
     def flap(self):
-        self.wing += 1
-        self.wing %= 3
-        self.image = self.images[self.angle][self.wing]
-        self.mask = self.masks[self.angle][self.wing]
+        self.w += 1
+        if self.w == TICKRATE // WINGSPEED:
+            self.wing += 1
+            self.wing %= 3
+            self.image = self.images[self.angle][self.wing]
+            self.mask = self.masks[self.angle][self.wing]      
+            self.w = 0

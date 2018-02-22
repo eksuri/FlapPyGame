@@ -3,7 +3,7 @@ from pygame import mixer
 from grouplist import GroupList
 from gamestate import GameState
 
-global WIDTH, HEIGHT, TICKRATE, PIPE_DENSITY, PIPEGAP_FIXED, PIPEGAP_MIN, PIPEGAP_MAX, TITLE, CLOCK, DISPLAY, PLAYSOUNDS, GAMESTATE, GROUPS
+global WIDTH, HEIGHT, TICKRATE, WINGSPEED, PIPE_DENSITY, PIPEGAP_FIXED, PIPEGAP_MIN, PIPEGAP_MAX, TITLE, CLOCK, DISPLAY, PLAYSOUNDS, GAMESTATE, GROUPS
 
 pygame.init()
 
@@ -11,9 +11,10 @@ pygame.init()
 #
 WIDTH = 512 # try it widescreen!
 HEIGHT = 512 # don't change
-TICKRATE = 60 # variable, 3-60
+TICKRATE = 60 # variable, 3-120
+WINGSPEED = 20 # tickrate floor
 #
-PIPE_DENSITY = 2 # variable
+PIPE_DENSITY = 4 # variable
 PIPE_BUFFER = 80 # how far off the floor / roof the pipe has to be 
 PIPEGAP_FIXED = False
 PIPEGAP_MIN = 80 # if fixed = true, uses minimum

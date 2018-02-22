@@ -15,8 +15,8 @@ class Ground(pygame.sprite.Sprite):
 
 
     def update(self):        
-        self.position -= 60 / TICKRATE
+        self.position -= 120 / TICKRATE
         if self.position == -self.width:
             self.position += self.start
             self.rect.move_ip(self.start, 0)
-        self.rect.move_ip(-60 / TICKRATE, 0)
+        self.rect.move_ip(-120 / TICKRATE, 0)

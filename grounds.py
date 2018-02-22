@@ -11,4 +11,5 @@ class Grounds(pygame.sprite.Group):
             self.add(Ground(336, x, len(self.range)))
 
     def update(self):
+        print(len(pygame.sprite.Group.sprites(self)))
         pygame.sprite.Group.update(self)
