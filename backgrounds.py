@@ -3,12 +3,10 @@ from background import Background
 
 class Backgrounds(pygame.sprite.Group):
     
-    def __init__(self, width, height, daynight):
+    def __init__(self, width, daynight):
         pygame.sprite.Group.__init__(self)
-        self.width = width
-        self.daynight = daynight
-        self.add(Background(self.width, self.width, self.daynight))
-        self.add(Background(self.width, 0, self.daynight))
+        for x in range(0, width, 288):
+            self.add(Background(x, daynight))
 
     def update(self):
         pygame.sprite.Group.update(self)

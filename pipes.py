@@ -9,7 +9,7 @@ class Pipes(pygame.sprite.Group):
         pygame.sprite.Group.__init__(self)
         self.width = width
         self.density = density
-        self.counter = self.width / self.density
+        self.counter = 288 / self.density
         self.color = color
         self.gap = randint(180,320)
         self.add(Pipe(self.width, self.gap, self.color, 0))
@@ -21,5 +21,5 @@ class Pipes(pygame.sprite.Group):
             self.gap = randint(180,320)
             self.add(Pipe(self.width, self.gap, self.color, 0))
             self.add(Pipe(self.width, self.gap, self.color, 1))
-            self.counter = self.width / self.density
+            self.counter = 288 / self.density
         pygame.sprite.Group.update(self)

@@ -1,11 +1,15 @@
 import pygame
 
-class Overlay:
+class Overlay(pygame.sprite.Group):
     
-    def __init__(self):
-        self.gameover = pygame.image.load('assets/sprites/gameover.png').convert_alpha()
-        self.gameover = False    
+    def __init__(self, width, height):
+        pygame.sprite.Group.__init__(self)    
+        self.width = width
+        self.height = height
+        
 
-    def paint(self, DISPLAY):        
-        if self.gameover:
-            DISPLAY.blit(self.gameover, (100, 125))
+    def update(self):      
+        pygame.sprite.Group.update(self)
+
+        #if self.gameover:
+        #    self.add(GameOver(self.width, self.height))

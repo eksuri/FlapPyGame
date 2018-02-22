@@ -9,10 +9,10 @@ from overlay import Overlay
 
 from random import randint
 
-WIDTH = 290
-HEIGHT = 512
-TICKRATE = 60
-PIPE_DENSITY = 2
+WIDTH = 1024 # variable
+HEIGHT = 512 # fixed
+TICKRATE = 60 # variable
+PIPE_DENSITY = 2 # variable
 TITLE = 'Flappy Bird'
 
 pygame.init()
@@ -29,14 +29,14 @@ def main():
 
     br = Bird(randint(0,2))
     birdGroup = pygame.sprite.Group((br))
-    backgroundGroup = Backgrounds(WIDTH, HEIGHT, randint(0,1))
+    backgroundGroup = Backgrounds(WIDTH, randint(0,1))
     pipeGroup = Pipes(WIDTH, PIPE_DENSITY, randint(0,1))
     groundGroup = Grounds(WIDTH)
+    overlayGroup = Overlay(WIDTH, HEIGHT)
 
-    gl = GroupList()    
-    gl.add(backgroundGroup, birdGroup, pipeGroup, groundGroup)
+    groups = GroupList()    
+    groups.add(backgroundGroup, birdGroup, pipeGroup, groundGroup)
 
-    ol = Overlay()
     while not crashed:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -45,8 +45,8 @@ def main():
                 br.bounce()
 
 
-        gl.update()
-        gl.draw(DISPLAY)
+        groups.update()
+        groups.draw(DISPLAY)
 
         pygame.display.update()   
         CLOCK.tick(TICKRATE)
