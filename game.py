@@ -44,15 +44,13 @@ def main():
                 br = Bird(randint(0,2), gameState)
                 birdGroup = pygame.sprite.Group((br))
                 backgroundGroup = Backgrounds(WIDTH, randint(0,1))
-                pipeGroup = Pipes(WIDTH, PIPE_DENSITY, randint(0,1))
+                pipeGroup = Pipes(WIDTH, PIPE_DENSITY, randint(0,1), br, gameState)
                 groundGroup = Grounds(WIDTH)
                 #scoreGroup = Scores(WIDTH, HEIGHT)
 
-                groups.add(backgroundGroup, birdGroup, pipeGroup, groundGroup)  
+                groups.add(backgroundGroup, pipeGroup, groundGroup, birdGroup)  
 
             elif gameState.get() == 2:
-                backgroundGroup = Backgrounds(WIDTH, randint(0,1))
-                groundGroup = Grounds(WIDTH)
                 gameoverGroup = pygame.sprite.Group(GameOver(WIDTH, HEIGHT))
                 #scoreGroup = Scores(WIDTH, HEIGHT)
 

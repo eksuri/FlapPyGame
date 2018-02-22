@@ -4,8 +4,9 @@ class Ground(pygame.sprite.Sprite):
     
     def __init__(self, width, position, count):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('assets/sprites/base.png').convert() 
+        self.image = pygame.image.load('assets/sprites/base.png').convert_alpha() 
         self.rect = self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
         self.position = position
         self.rect.topleft = (self.position, 400) 
         self.width = width # width of single tile
