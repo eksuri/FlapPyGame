@@ -62,8 +62,8 @@ class Bird(pygame.sprite.Sprite):
         
         if self.angle < 0:
             self.angle = 0
-        elif self.angle > 19:
-            self.angle = 19
+        elif self.angle > len(self.angles) - 1:
+            self.angle = len(self.angles) - 1
 
         if  self.rect.y > 368: # calculation for floor collision, could be replaced with real colision
             PLAYSOUNDS[0](2)

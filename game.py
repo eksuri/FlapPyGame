@@ -2,13 +2,12 @@ import pygame
 from pygame import mixer
 from globals import *
 
-
-from grouplist import GroupList
 from backgrounds import Backgrounds
 from bird import Bird
-from pipes import Pipes
 from grounds import Grounds
+from grouplist import GroupList
 from menu import Menu
+from pipes import Pipes
 from scores import Scores
 
 from random import randint
@@ -24,6 +23,7 @@ def main():
                 backgroundGroup = Backgrounds()
                 groundGroup = Grounds()
                 menuGroup = pygame.sprite.Group(Menu(0))
+
                 GROUPS.add(backgroundGroup, groundGroup, menuGroup)
 
             elif GAMESTATE.get() == 1:
@@ -38,6 +38,7 @@ def main():
 
             elif GAMESTATE.get() == 2:
                 menuGroup = pygame.sprite.Group(Menu(1))
+
                 GROUPS.add(menuGroup)
             else:
                 crashed = True
@@ -46,7 +47,7 @@ def main():
             if event.type == pygame.QUIT:
                 crashed = True
             elif event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
-                if GAMESTATE.get() == 0: # could be dangerous...
+                if GAMESTATE.get() == 0:
                     GAMESTATE.set(1)
                 elif GAMESTATE.get() == 1:
                     br.bounce()
