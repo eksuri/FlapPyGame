@@ -9,12 +9,15 @@ pygame.init()
 
 ##settings to change: ###########################
 #
-WIDTH = 512 # try it widescreen!
+WIDTH = 320 # try it widescreen!
 HEIGHT = 512 # don't change
-TICKRATE = 60 # variable, 3-120
+TICKRATE = 20 # variable, 20-120
 WINGSPEED = 20 # tickrate floor
+#10*40 = Terminal * 6.666 # bounce velocity
+#1*40 = Terminal * .66666# gravity
+#20*40 = Terminal * 13.3333 # terminal velocity
 #
-PIPE_DENSITY = 4 # variable
+PIPE_DENSITY = 3 # variable
 PIPE_BUFFER = 80 # how far off the floor / roof the pipe has to be 
 PIPEGAP_FIXED = False
 PIPEGAP_MIN = 80 # if fixed = true, uses minimum

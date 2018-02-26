@@ -40,11 +40,12 @@ class Bird(pygame.sprite.Sprite):
 
         self.z = 0 #counter 
         self.w = 0 #counter #2
-
-
+        self.alive = True
     
     def update(self):
-        self.flap()
+        if self.alive:
+            self.flap()
+
         if self.z > TICKRATE / 4:
             self.angle -= 1
             self.rect.move_ip(0, -180 / TICKRATE)
@@ -66,9 +67,11 @@ class Bird(pygame.sprite.Sprite):
             self.angle = len(self.angles) - 1
 
         if  self.rect.y > 368: # calculation for floor collision, could be replaced with real colision
-            PLAYSOUNDS[0](2)
-            PLAYSOUNDS[0](3)
-            GAMESTATE.set(2)
+            self.rect.y = 368
+            if self.alive:
+                PLAYSOUNDS[0](2)
+                PLAYSOUNDS[0](3)
+                GAMESTATE.set(2)
 
     def bounce(self):
         PLAYSOUNDS[0](0)
@@ -82,3 +85,6 @@ class Bird(pygame.sprite.Sprite):
             self.image = self.images[self.angle][self.wing]
             self.mask = self.masks[self.angle][self.wing]      
             self.w = 0
+
+    def die(self):
+        self.alive = False

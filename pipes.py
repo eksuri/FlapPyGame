@@ -16,12 +16,19 @@ class Pipes(pygame.sprite.Group):
         self.bird = bird
         self.add(Pipe(self.gap, self.color, 0, self.bird))
         self.add(Pipe(self.gap, self.color, 1, self.bird))
+        self.alive = True
 
     def update(self):
-        self.counter -= 60 / TICKRATE
-        if self.counter < 0:
-            self.gap = randint(PIPEGAP_MIN + PIPE_BUFFER, 400 - PIPE_BUFFER)
-            self.add(Pipe(self.gap, self.color, 0, self.bird))
-            self.add(Pipe(self.gap, self.color, 1, self.bird))
-            self.counter = 288 / PIPE_DENSITY
-        pygame.sprite.Group.update(self)
+        if self.alive:
+            self.counter -= 60 / TICKRATE
+            if self.counter < 0:
+                self.gap = randint(PIPEGAP_MIN + PIPE_BUFFER, 400 - PIPE_BUFFER)
+                self.add(Pipe(self.gap, self.color, 0, self.bird))
+                self.add(Pipe(self.gap, self.color, 1, self.bird))
+                self.counter = 288 / PIPE_DENSITY
+            pygame.sprite.Group.update(self)
+    
+    def die(self):
+        for pipe in pygame.sprite.Group.sprites(self):
+            self.alive = False
+            pipe.die()

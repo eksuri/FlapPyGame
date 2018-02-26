@@ -12,3 +12,7 @@ class Grounds(pygame.sprite.Group):
 
     def update(self):
         pygame.sprite.Group.update(self)
+
+    def die(self):
+        for ground in pygame.sprite.Group.sprites(self):
+            ground.die()

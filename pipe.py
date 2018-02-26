@@ -11,7 +11,8 @@ class Pipe(pygame.sprite.Sprite):
         self.image = self.images[color]
         self.bird = bird
         self.direction = direction
-        self.middle = WIDTH // 2 
+        self.middle = WIDTH // 2
+        self.alive = True 
 
         if direction == 1:
             self.image = pygame.transform.flip(self.image,0,1)
@@ -34,10 +35,13 @@ class Pipe(pygame.sprite.Sprite):
 
         if self.rect.x < -52:
             self.kill()
-        if(self.collide(self.bird)):
+        if(self.alive and self.collide(self.bird)):
             PLAYSOUNDS[0](2)
             PLAYSOUNDS[0](3)
             GAMESTATE.set(2)
+
+    def die(self):
+        self.alive = False
 
     def collide(self, other):
         offset = list((other.rect[0] - self.rect[0], other.rect[1] - self.rect[1]))

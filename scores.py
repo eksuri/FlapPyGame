@@ -18,3 +18,6 @@ class Scores(pygame.sprite.Group):
         self.empty()
         self.add(Score(self.score // 10, ( self.middle - 15, self.height)))
         self.add(Score(self.score % 10, ( self.middle + 15, self.height)))
+    
+    def die(self):
+        pass

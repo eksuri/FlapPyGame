@@ -3,7 +3,7 @@ from pygame import mixer
 from globals import *
 
 from backgrounds import Backgrounds
-from bird import Bird
+from birds import Birds
 from grounds import Grounds
 from grouplist import GroupList
 from menu import Menu
@@ -27,10 +27,9 @@ def main():
                 GROUPS.add(backgroundGroup, groundGroup, menuGroup)
 
             elif GAMESTATE.get() == 1:
-                br = Bird()
-                birdGroup = pygame.sprite.Group((br))
+                birdGroup = Birds()
                 backgroundGroup = Backgrounds()
-                pipeGroup = Pipes(br)
+                pipeGroup = Pipes(birdGroup.getBird())
                 groundGroup = Grounds()
                 scoreGroup = Scores()
 
@@ -50,7 +49,7 @@ def main():
                 if GAMESTATE.get() == 0:
                     GAMESTATE.set(1)
                 elif GAMESTATE.get() == 1:
-                    br.bounce()
+                    birdGroup.getBird().bounce()
                 elif GAMESTATE.get() == 2:
                     GAMESTATE.set(0)
                 else:

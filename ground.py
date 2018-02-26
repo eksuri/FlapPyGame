@@ -12,11 +12,16 @@ class Ground(pygame.sprite.Sprite):
         self.rect.topleft = (self.position, 400) 
         self.width = width # width of single tile
         self.start = count * width # width of all tiles
+        self.alive = True
 
-
-    def update(self):        
-        self.position -= 120 / TICKRATE
-        if self.position == -self.width:
-            self.position += self.start
-            self.rect.move_ip(self.start, 0)
-        self.rect.move_ip(-120 / TICKRATE, 0)
+    def update(self):   
+        if self.alive:     
+            self.position -= 120 / TICKRATE
+            if self.position == -self.width:
+                self.position += self.start
+                self.rect.move_ip(self.start, 0)
+            self.rect.move_ip(-120 / TICKRATE, 0)
+    
+    def die(self):
+        self.alive = False
+        

@@ -17,6 +17,10 @@ class GroupList():
         for group in self.groupList:
             group.draw(display)
 
+    def die(self):
+        for group in self.groupList:
+            group.die()
+
     def empty(self):
         for group in self.groupList:
             group.empty()

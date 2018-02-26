@@ -16,3 +16,7 @@ class Backgrounds(pygame.sprite.Group):
 
     def update(self):
         pygame.sprite.Group.update(self)
+
+
+    def die(self):
+        pass

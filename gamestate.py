@@ -11,9 +11,12 @@ class GameState:
     
     def set(self, i):
         self.state = i
-        self.points = 0
         self.dirty = True
-        self.groups.empty()
+        if i == 2:
+            self.groups.die()
+        else:
+            self.points = 0
+            self.groups.empty()
 
     def get(self):
         self.dirty = False
